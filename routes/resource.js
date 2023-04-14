@@ -14,7 +14,7 @@ router.delete('/squirrels/:id', squirrel_controller.squirrel_delete);
 // PUT request to update squirrel.
 router.put('/squirrels/:id', squirrel_controller.squirrel_update_put);
 // GET request for one squirrel.
-//router.get('/squirrels/:id', squirrel_controller.squirrel_detail);
+router.get('/squirrels/:id', squirrel_controller.squirrel_detail);
 // GET request for list of all squirrel items.
 router.get('/squirrels', squirrel_controller.squirrel_list);
 module.exports = router;

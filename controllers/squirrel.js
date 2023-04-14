@@ -61,4 +61,33 @@ exports.squirrel_list = async function(req, res) {
         res.send(`{"error": ${err}}`);
         }
         };
-            
+
+        exports.squirrel_detail = async function(req, res) {
+            console.log("detail" + req.params.id)
+            try {
+            result = await squirrel.findById( req.params.id)
+            res.send(result)
+            } catch (error) {
+            res.status(500)
+            res.send(`{"error": document for id ${req.params.id} not found`);
+            }
+           };
+           exports.squirrel_update_put = async function(req, res) {
+            console.log(`update on id ${req.params.id} with body
+           ${JSON.stringify(req.body)}`)
+            try {
+            let toUpdate = await squirrel.findById( req.params.id)
+            // Do updates of properties
+            if(req.body.squirrel_color)
+            toUpdate.squirrel_color = req.body.squirrel_color;
+            if(req.body.squirrel_breed) toUpdate.squirrel_breed = req.body.squirrel_breed;
+            if(req.body.squirrel_price) toUpdate.squirrel_price = req.body.squirrel_price;
+            let result = await toUpdate.save();
+            console.log("Sucess " + result)
+            res.send(result)
+            } catch (err) {
+            res.status(500)
+            res.send(`{"error": ${err}: Update for id ${req.params.id}
+           failed`);
+            }
+           };        
