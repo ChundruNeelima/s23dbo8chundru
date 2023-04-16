@@ -10,6 +10,8 @@ const squirrel_controlers= require('../controllers/squirrel');
 
 /* GET squirrels */
 router.get('/', squirrel_controlers.squirrel_view_all_Page );
+/* GET detail squirrel page */
+router.get('/detail', squirrel_controlers.squirrel_view_one_Page);
 
 
 module.exports = router;
