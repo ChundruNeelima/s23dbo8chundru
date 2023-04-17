@@ -1,0 +1,28 @@
+extends layout
+block content
+ h1= title
+ form(id='squirrelForm', action="/resource/squirrels", method="POST")
+  div.form-group
+   label.squirrelAttr(for='squirrel_color') squirrel Color
+   input#squirrel_color(type='text', name='squirrel_color')
+  div.form-group
+   label.squirrelAttr(for='squirrel_breed') squirrel breed
+   input#squirrel_breed(type='text', name='squirrel_breed')
+  div.form-group
+   label.squirrelAttr(for='squirrel_price') squirrel price 
+   input#squirrel_price(type='text', name='squirrel_price')
+  input(type="submit")
+ script.
+  document.forms['squirrelForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) 
+    }).then((resp) => {
+        return resp.json();
+    }).then((body) => {
+        alert("Save succeded")
+    }).catch((error) => {
+        alert("Save failed " + error )
+    });
+   }); 

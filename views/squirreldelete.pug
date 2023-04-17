@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to delete
+  else
+    - let squirrelid = toShow._id
+    - let squirrel_color = toShow.squirrel_color
+    - let squirrel_breed = toShow.squirrel_breed
+    - let squirrel_price = toShow.squirrel_price
+    - let actionid = "/resource/squirrels/" + squirrelid
+    script let actionid = "#{actionid}"
+    div
+     div.row 
+      div(class='squirrelAttr mr-3') squirrel ID is:
+      div #{squirrelid}
+     div.row
+      div(class='squirrelAttr mr-3') squirrel color is:
+      div #{squirrel_color}
+     div.row
+      div(class='squirrelAttr mr-3') squirrel breed is:
+      div #{squirrel_breed}
+     div.row
+      div(class='squirrelAttr mr-3') squirrel Price is:
+      div #{squirrel_price}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+  script.
+   function cancel() {
+    window.location.href='/squirrels'
+    }
+  script.
+    function deleteOnid() {
+     console.log("starting delete")
+     fetch(actionid, {
+      method: 'DELETE'
+     }).then((resp) => {
+        return resp.json();
+     }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/squirrel'
+     }).catch((error) => {
+        alert("Delete failed " + error )
+     });
+    }

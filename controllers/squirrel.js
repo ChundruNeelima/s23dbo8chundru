@@ -115,5 +115,41 @@ exports.squirrel_list = async function(req, res) {
             res.status(500)
             res.send(`{'error': '${err}'}`);
             }
-           };           
+           };      
+           
+           exports.squirrel_create_Page = function(req, res) {
+            console.log("create view")
+            try{
+            res.render('squirrelcreate', { title: 'squirrel Create'});
+            }
+            catch(err){
+            res.status(500)
+            res.send(`{'error': '${err}'}`);
+            }
+           };
+           
+           exports.squirrel_update_Page = async function(req, res) {
+            console.log("update view for item "+req.query.id)
+            try{
+            let result = await squirrel.findById(req.query.id)
+            res.render('squirrelupdate', { title: 'squirrel Update', toShow: result });
+            }
+            catch(err){
+            res.status(500)
+            res.send(`{'error': '${err}'}`);
+            }
+           };     
+
+           exports.squirrel_delete_Page = async function(req, res) {
+            console.log("Delete view for id " + req.query.id)
+            try{
+            result = await squirrel.findById(req.query.id)
+            res.render('squirreldelete', { title: 'squirrel Delete', toShow:
+           result });
+            }
+            catch(err){
+            res.status(500)
+            res.send(`{'error': '${err}'}`);
+            }
+           };
            

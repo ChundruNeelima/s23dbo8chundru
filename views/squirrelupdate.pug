@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1= title
+
+    - let squirrelid = toShow._id
+    - let squirrel_color = toShow.squirrel_color
+    - let squirrel_breed = toShow.squirrel_breed
+    - let squirrel_price = toShow.squirrel_price
+    - let actionid = "/resource/squirrels/" + squirrelid
+    script let actionid = "#{actionid}"
+    div.row(class='mb-2')
+    div.mr-1 ID is 
+      span(style="color:red")  #{squirrelid}
+    form(id='squirrelForm', action= actionid, method="PUT")
+      div.form-group
+      div(class="row g-2 align-items-center")
+        div(class="col-1")
+          label.squirrelAttr(for='squirrel_color',class="col-form-label") squirrel Colour
+        div(class="col-auto")
+          input#squirrel_color(type='text', name='squirrel_color',class="form-control", value=squirrel_color)
+      div.form-group
+      div(class="row g-2 align-items-center")
+        div(class="col-1")
+          label.squirrelAttr(for='squirrel_breed',class="col-form-label") squirrel breed 
+        div(class="col-auto")
+          input#squirrel_breed(type='text', name='squirrel_breed',class="form-control", value=squirrel_breed)
+      div.form-group
+      div(class="row g-2 align-items-center")
+        div(class="col-1")
+          label.squirrelAttr(for='squirrel_price',class="col-form-label") squirrel cost
+        div(class="col-auto")
+          input#squirrel_price(type='number', name='squirrel_price',class="form-control", value=squirrel_price)
+      input(class="btn btn-danger m-2" type="submit")
+        //- button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    
+    script.
+      document.forms['squirrelForm'].addEventListener('submit', (event) => {
+       event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+       fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+       });
+      });
