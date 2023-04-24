@@ -1,17 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p My name is Neelima 
-  button(type="button",class="btn btn-success", onclick="doReduce()") Press Me
-  div(id="reduce") Reduce the value 
-  script.
-   let count=20
-   let change=-1
-   function doReduce(){
-    count+=change;
-    change-=1;
-    document.getElementById('reduce').innerHTML=`Count ${count} with change ${change}`
-    console.log(count
-    )
-   }
+extends layout 
+ 
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/squirrel") Take me to squirrels 
+    br 
+    a(href="/logout") Logout

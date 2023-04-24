@@ -19,9 +19,7 @@ exports.squirrel_list = async function(req, res) {
     res.send('NOT IMPLEMENTED: squirrel detail: ' + req.params.id);
     };
     // Handle squirrel create on POST.
-    exports.squirrel_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: squirrel create POST');
-    };
+    
     // Handle squirrel delete form on DELETE.
     exports.squirrel_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: squirrel delete DELETE ' + req.params.id);
