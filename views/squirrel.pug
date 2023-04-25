@@ -2,19 +2,30 @@ extends layout
 block content
 
   h1= title
-  //- - let items = ['squirrel_type','quantity','cost']
+  //--let items = ['squirrel_type','quantity','cost']
   - let items = results;
   - let o;  
+  script.
+    function buy(x){
+      alert('purchased item ' + x)
+   } 
   div(class='container-fluid')
+    a(class="btn btn-primary" href="/squirrel/create") Create
     div(class='row m-1')
+    div(class="row row-cols-1 row-cols-sm-4 g-6")
       each item,index in items
         - let destination = `dispatch(\"/squirrel/update?id=${item._id}\")`
-        div(class="row-sm-2", class="m-1") Item #{item.squirrel_color}(#{item.squirrel_breed}) is #{item.squirrel_price}        
+        - let details = `dispatch(\"/squirrel/detail?id=${item._id}\")` 
+      
+        div(class="squirreld text-white bg-dark mb-3" class='col' class='squirreld' class='squirreld-body' class='squirreld-text' onclick='buy('+index+')') Item #{item.squirrel_color}(#{item.squirrel_breed})is #{item.squirrel_price} 
+          <br><br>
+          span(class="btn btn-primary", onclick= details) Details
+          <br>
+          a(class="btn btn-warning", href="/squirrel/delete/?id="+item._id) Delete
+          <br>
           button.btn( class="btn-success ml-1", onclick= destination) Update
 
   script.
     function dispatch(path){
       window.location.href=path
     }
-
-  

@@ -20,7 +20,6 @@ passport.use(new LocalStrategy(
 }
 ));
 
-
 var Account =require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());

@@ -1,5 +1,13 @@
 var express = require('express'); 
-var passport = require('passport'); 
+var passport = require('passport');
+// redirect to login.
+const secured = (req, res, next) => {
+  if (req.user){
+  return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect("/login");
+  } 
 var router = express.Router(); 
 var Account = require('../models/account'); 
  
@@ -12,13 +20,12 @@ router.get('/register', function(req, res) {
 }); 
  
 router.post('/register', function(req, res) { 
-  Account.findOne({ username : req.body.username },  
-    function(err, user) { 
+  Account.findOne({ username : req.body.username }).then((err, user)=>{ 
       if(err) { 
         return res.render('register', { title: 'Registration',  
                   message: 'Registration error', account : req.body.username }) 
       } 
-      if(user){ 
+      if(user == {} ){ 
         return res.render('register', { title: 'Registration',  
                    message: 'Existing User', account : req.body.username }) 
       } 
@@ -35,8 +42,8 @@ router.post('/register', function(req, res) {
         console.log('Sucess, redirect'); 
         res.redirect('/'); 
       }) 
-    })    
-  })
+    }   
+)})
   router.get('/login', function(req, res) { 
     res.render('login', { title: 'squirrel App Login', user : req.user }); 
 }); 

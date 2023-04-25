@@ -1,7 +1,9 @@
 extends layout
 block content
  h1= title
-
+ if(toShow == null)
+    h2 No instance to update
+ else
    - let squirrel_id = toShow._id
    - let squirrel_color = toShow.squirrel_color
    - let squirrel_breed = toShow.squirrel_breed

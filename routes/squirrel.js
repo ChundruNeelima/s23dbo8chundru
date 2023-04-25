@@ -15,9 +15,15 @@ router.get('/detail', squirrel_controlers.squirrel_view_one_Page);
 
 router.get('/create', squirrel_controlers.squirrel_create_Page);
 
+const secured = (req, res, next) => {
+  if (req.user){
+  return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect("/login");
+  }
 router.get('/update', squirrel_controlers.squirrel_update_Page);
 
 router.get('/delete', squirrel_controlers.squirrel_delete_Page);
-
 
 module.exports = router;
